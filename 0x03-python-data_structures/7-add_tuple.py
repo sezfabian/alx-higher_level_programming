@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 def add_tuple(tuple_a=(), tuple_b=()):
     if not tuple_a and not tuple_b:
         tuple_x = (0, 0)
