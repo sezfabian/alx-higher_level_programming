@@ -47,3 +47,19 @@ Test cases:
     >>> bg.integer_validator("team", 6, 6)
     Traceback (most recent call last):
     TypeError: integer_validator() takes 3 positional arguments but 4 were given
+
+    >>> bg.integer_validator("team", 6.5)
+    Traceback (most recent call last):
+    TypeError: team must be an integer
+
+    >>> bg.integer_validator("santiago", (1, 2))
+    Traceback (most recent call last):
+    TypeError: santiago must be an integer
+
+    >>> bg.integer_validator("santiago", [1, 2])
+    Traceback (most recent call last):
+    TypeError: santiago must be an integer
+
+    >>> bg.area(1)
+    Traceback (most recent call last):
+    TypeError: area() takes 1 positional argument but 2 were given
