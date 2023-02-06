@@ -18,6 +18,12 @@ Test cases:
 
     >>> bg.integer_validator("width", 89)
 
+    >>> bg.integer_validator("", 28)
+
+    >>> bg.integer_validator("", 0)
+    Traceback (most recent call last):
+    ValueError:  must be greater than 0
+
     >>> bg.integer_validator("name", "John")
     Traceback (most recent call last):
     TypeError: name must be an integer
