@@ -69,3 +69,9 @@ Test cases:
     >>> bg.area(1)
     Traceback (most recent call last):
     TypeError: area() takes 1 positional argument but 2 were given
+
+    >>> c = __import__("7-base_geometry").BaseGeometry.__doc__
+    >>> len(c) > 1
+    True
+
+    >>> bg.integer_validator("       ", 1991)
