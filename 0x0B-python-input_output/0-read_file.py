@@ -3,7 +3,7 @@
 
 
 def read_file(myfile):
-    """prints contents of a file with UTF8 encoding"""
+    """Reads contents of a file with UTF8 encoding and prints to stdout"""
 
     with open(myfile, encoding="utf-8") as f:
-        print(f.read())
+        print(f.read(), end="")
