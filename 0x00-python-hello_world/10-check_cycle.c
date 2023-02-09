@@ -10,10 +10,7 @@ int check_cycle(listint_t *list)
 {
 	listint_t *temp;
 
-	temp = malloc(sizeof(listint_t));
-	if (temp == NULL)
-		return (0);
-	while (list->next)
+	while (list)
 	{
 		temp = list;
 		while (temp)
@@ -26,7 +23,6 @@ int check_cycle(listint_t *list)
 		}
 		list = list->next;
 	}
-	free(temp);
 	return (0);
 }
 
