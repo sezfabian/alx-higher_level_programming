@@ -8,24 +8,25 @@
 
 int check_cycle(listint_t *list)
 {
-	int stat = 0;
 	listint_t *temp;
 
 	temp = malloc(sizeof(listint_t));
 	if (temp == NULL)
-		return (NULL);
+		return (0);
 	while (list)
 	{
 		temp = list;
 		while (temp)
 		{
 			if (temp->next == list)
-			stat = 1;
+			{
+				return (1);
+			}
 			temp = temp->next;
 		}
 		list = list->next;
 	}
 	free(temp);
-	return (stat);
+	return (0);
 }
 
