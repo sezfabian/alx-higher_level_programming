@@ -2,6 +2,9 @@
 """Rectangle class test module"""
 
 import unittest
+import sys
+import io
+import unittest.mock
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -131,6 +134,15 @@ class Test_Rctangle(unittest.TestCase):
         with self.assertRaises(TypeError):
             r1 = Rectangle(2, 10, 0, 0.5)
 
+    def test_rect_setter(self):
+        r1 = Rectangle(2, 6, 1, 1, 7)
+        r1.width = 4
+        r1.height = 4
+        r1.x = 2
+        r1.y = 2
+        self.assertEqual(r1.width, r1.height, 4)
+        self.assertEqual(r1.x, r1.y, 2)
+
     def test_rect_area(self):
         r1 = Rectangle(2, 10)
         self.assertEqual(r1.area(), 20)
@@ -141,3 +153,14 @@ class Test_Rctangle(unittest.TestCase):
             r1.area(1)
         with self.assertRaises(TypeError):
             Rectangle.area(1, 1)
+
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def test_rect_display(self, mock_stdout):
+        r1 = Rectangle(4, 5)
+        r1.display()
+        self.assertEqual(mock_stdout.getvalue(), "####\n####\n####\n####\n####\n")
+
+    def test_rect_display_arg(self):
+        r1 = Rectangle(4, 5)
+        with self.assertRaises(TypeError):
+            r1.display(1)
