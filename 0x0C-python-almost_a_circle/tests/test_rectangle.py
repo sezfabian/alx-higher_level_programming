@@ -174,3 +174,34 @@ class Test_Rctangle(unittest.TestCase):
         r1 = Rectangle(2, 3, 2, 2)
         r1.display()
         self.assertEqual(mock_stdout.getvalue(), "\n\n  ##\n  ##\n  ##\n")
+
+    def test_rect_update1(self):
+        r0 = Rectangle(8, 8)
+        r1 = Rectangle(10, 10, 10, 10)
+        self.assertEqual(str(r1), "[Rectangle] ({}) 10/10 - 10/10".format(r0.id + 1))
+
+    def test_rect_update2(self):
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89)
+        self.assertEqual(str(r1), "[Rectangle] (89) 10/10 - 10/10")
+
+    def test_rect_update3(self):
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89, 2)
+        self.assertEqual(str(r1), "[Rectangle] (89) 10/10 - 2/10")
+
+    def test_rect_update4(self):
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89, 2, 3)
+        self.assertEqual(str(r1), "[Rectangle] (89) 10/10 - 2/3")
+
+    def test_rect_update5(self):
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89, 2, 3, 4)
+        self.assertEqual(str(r1), "[Rectangle] (89) 4/10 - 2/3")
+
+    def test_rect_update6(self):
+        r1 = Rectangle(10, 10, 10, 10)
+        r1.update(89, 2, 3, 4, 5)
+        self.assertEqual(str(r1), "[Rectangle] (89) 4/5 - 2/3")
+
