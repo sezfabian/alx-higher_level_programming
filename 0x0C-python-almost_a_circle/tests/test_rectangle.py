@@ -164,3 +164,7 @@ class Test_Rctangle(unittest.TestCase):
         r1 = Rectangle(4, 5)
         with self.assertRaises(TypeError):
             r1.display(1)
+
+    def test_rect_str(self):
+        r1 = Rectangle(4, 6, 2, 1, 12)
+        self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
