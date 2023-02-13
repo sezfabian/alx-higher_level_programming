@@ -168,3 +168,9 @@ class Test_Rctangle(unittest.TestCase):
     def test_rect_str(self):
         r1 = Rectangle(4, 6, 2, 1, 12)
         self.assertEqual(str(r1), "[Rectangle] (12) 2/1 - 4/6")
+
+    @unittest.mock.patch('sys.stdout', new_callable=io.StringIO)
+    def test_rect_displaypro(self, mock_stdout):
+        r1 = Rectangle(2, 3, 2, 2)
+        r1.display()
+        self.assertEqual(mock_stdout.getvalue(), "\n\n  ##\n  ##\n  ##\n")
