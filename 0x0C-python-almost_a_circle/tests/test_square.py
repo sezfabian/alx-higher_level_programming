@@ -124,3 +124,8 @@ class TestSquare(unittest.TestCase):
         d1 = {'id': 7, 'x': 5, 'size': 10, 'y': 6}
         with self.assertRaises(TypeError):
             self.assertEqual(s1.to_dictionary(1), d1)
+
+    def test_square_to_dictionary_two_instance(self):
+        s1 = Square(10, 2, 1)
+        s2 = Square(1, 1)
+        self.assertEqual(s1 == s2, False)

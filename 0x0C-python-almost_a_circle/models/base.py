@@ -1,5 +1,6 @@
 #!/usr/bin/python3
 """base class module"""
+import json
 
 
 class Base:
@@ -23,4 +24,8 @@ class Base:
     @id.setter
     def id(self, value):
         """sets instance id"""
-        self.__id = value
+        self.__id = valuei
+
+    def to_json_string(list_dictionaries):
+        """returns the JSON representation of an object (string)"""
+        return json.dumps(list_dictionaries)
