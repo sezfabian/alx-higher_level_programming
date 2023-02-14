@@ -234,3 +234,9 @@ class Test_Rctangle(unittest.TestCase):
         r1 = Rectangle(3, 5, 6, 7, 14)
         d1 = {"x": 6, "y": 7, "id": 14, "height": 5, "width": 3}
         self.assertEqual(r1.to_dictionary(), d1)
+
+    def test_to_dictionary1(self):
+        r1 = Rectangle(3, 5, 6, 7, 14)
+        d1 = {"x": 6, "y": 7, "id": 14, "height": 5, "width": 3}
+        with self.assertRaises(TypeError):
+            self.assertEqual(r1.to_dictionary(1), d1)

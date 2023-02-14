@@ -113,3 +113,14 @@ class TestSquare(unittest.TestCase):
         s1.display()
         self.assertEqual(mock_stdout.getvalue(), \
             "#####\n#####\n#####\n#####\n#####\n")
+
+    def test_to_dictionary(self):
+        s1 = Square(10, 5, 6, 7)
+        d1 = {'id': 7, 'x': 5, 'size': 10, 'y': 6}
+        self.assertEqual(s1.to_dictionary(), d1)
+
+    def test_square_to_dictionary_arg(self):
+        s1 = Square(10, 5, 6, 7)
+        d1 = {'id': 7, 'x': 5, 'size': 10, 'y': 6}
+        with self.assertRaises(TypeError):
+            self.assertEqual(s1.to_dictionary(1), d1)
