@@ -24,7 +24,7 @@ class Base:
     @id.setter
     def id(self, value):
         """sets instance id"""
-        self.__id = valuei
+        self.__id = value
 
     def to_json_string(list_dictionaries):
         """returns the JSON representation of an object (string)"""
