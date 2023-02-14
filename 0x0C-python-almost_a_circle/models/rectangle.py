@@ -94,6 +94,8 @@ class Rectangle(Base):
 
     def update(self, *args, **kwargs):
         """ Assigns an argument to each attribute"""
+        if len(args) > 5:
+            raise TypeError("accepts less or 5 args")
         if args and len(args) != 0:
             for i, arg in enumerate(args):
                 if i == 0:
