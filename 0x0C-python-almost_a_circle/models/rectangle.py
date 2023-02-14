@@ -121,3 +121,9 @@ class Rectangle(Base):
                         self.x = arg
                     if key == "y":
                         self.y = arg
+
+    def to_dictionary(self):
+        """ Returns a dictionary representation of the Rectangle Class """
+        _dict = {'x': self.x, 'y': self.y, 'id': self.id,
+                 'height': self.height, 'width': self.width}
+        return _dict

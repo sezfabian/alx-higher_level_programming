@@ -230,3 +230,7 @@ class Test_Rctangle(unittest.TestCase):
             r1 = Rectangle(10, 10, 10, 10, 89)
             r1.update(1, 2, 3, 4, 5, 6, 7, 8)
 
+    def test_to_dictionary(self):
+        r1 = Rectangle(3, 5, 6, 7, 14)
+        d1 = {"x": 6, "y": 7, "id": 14, "height": 5, "width": 3}
+        self.assertEqual(r1.to_dictionary(), d1)
