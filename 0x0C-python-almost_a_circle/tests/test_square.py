@@ -5,6 +5,7 @@ import unittest
 import sys
 import io
 import unittest.mock
+import json
 from models.base import Base
 from models.square import Square
 
@@ -129,3 +130,13 @@ class TestSquare(unittest.TestCase):
         s1 = Square(10, 2, 1)
         s2 = Square(1, 1)
         self.assertEqual(s1 == s2, False)
+
+    def test_to_json_string_squares(self):
+        s1 = Square(10, 7, 2, 8)
+        s2 = Square(10)
+        d1 = s1.to_dictionary()
+        d2 = s2.to_dictionary()
+        json_string = Base.to_json_string([d1, d2])
+        squares = json.loads(json_string)
+        self.assertDictEqual(d1, squares[0])
+        self.assertDictEqual(d2, squares[1])

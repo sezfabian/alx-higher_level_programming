@@ -3,6 +3,7 @@
 
 
 import unittest
+import json
 from models.base import Base
 class TestBase(unittest.TestCase):
     """Base tests class"""
@@ -88,3 +89,29 @@ class TestBase(unittest.TestCase):
         b1 = Base()
         b2 = Base()
         self.assertEqual(Base._Base__nb_objects, 8)
+
+    def test_to_json_string_simple(self):
+        json_string = Base.to_json_string([{"id": 1}])
+        self.assertEqual(json_string, '[{"id": 1}]')
+
+    def test_to_json_string(self):
+        dict = []
+        dict.append({'x': 2, 'width': 10, 'id': 1, 'height': 7, 'y': 8})
+        dict.append({'x': 2, 'width': 12, 'id': 2, 'height': 10, 'y': 8})
+        json_string = Base.to_json_string(dict)
+        dict_from_json = json.loads(json_string)
+        self.assertEqual(type(dict_from_json), list)
+        self.assertEqual(dict_from_json, dict)
+
+    def test_to_json_string_two_times(self):
+        dict = []
+        dict.append({'x': 2, 'width': 10, 'id': 1, 'height': 7, 'y': 8})
+        dict.append({'x': 2, 'width': 12, 'id': 2, 'height': 10, 'y': 8})
+        json_string1 = Base.to_json_string(dict)
+        json_string2 = Base.to_json_string(dict)
+        self.assertEqual(json_string1, json_string2)
+
+    def test_to_json_string_empty(self):
+        json_string = Base.to_json_string([])
+        self.assertEqual(type(json_string), str)
+        self.assertEqual(json_string, "[]")

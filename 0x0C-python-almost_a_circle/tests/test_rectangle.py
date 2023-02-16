@@ -5,6 +5,7 @@ import unittest
 import sys
 import io
 import unittest.mock
+import json
 from models.base import Base
 from models.rectangle import Rectangle
 
@@ -249,4 +250,17 @@ class Test_Rctangle(unittest.TestCase):
         with self.assertRaises(TypeError):
             d1 = r1.to_dictionary(2)
 
+    def test_to_json_string_rectangles(self):
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(10, 7, 2)
+        d1 = r1.to_dictionary()
+        d2 = r2.to_dictionary()
+        json_string = Base.to_json_string([d1, d2])
+        rectangles = json.loads(json_string)
+        self.assertDictEqual(d1, rectangles[0])
+        self.assertDictEqual(d2, rectangles[1])
 
+    def test_save_to_file_empty(self):
+        Rectangle.save_to_file([])
+        with open("Rectangle.json") as f:
+            self.assertEqual(f.read(), "[]")
