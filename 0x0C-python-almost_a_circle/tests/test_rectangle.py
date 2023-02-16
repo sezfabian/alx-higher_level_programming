@@ -264,3 +264,18 @@ class Test_Rctangle(unittest.TestCase):
         Rectangle.save_to_file([])
         with open("Rectangle.json") as f:
             self.assertEqual(f.read(), "[]")
+
+    def test_from_json_to_string_empty(self):
+        json_list_input = Rectangle.to_json_string(None)
+        list_output = Rectangle.from_json_string(json_list_input)
+        self.assertEqual([], list_output)
+
+    def test_from_json_to_string(self):
+        list_input = [
+            {'id': 89, 'width': 10, 'height': 4},
+            {'id': 7, 'width': 1, 'height': 7}
+        ]
+        json_list_input = Rectangle.to_json_string(list_input)
+        list_output = Rectangle.from_json_string(json_list_input)
+        self.assertEqual(list_input, list_output)
+

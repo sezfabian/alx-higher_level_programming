@@ -41,3 +41,11 @@ class Base:
                 dict1.append(i.to_dictionary())
         with open(filename, mode="w", encoding="utf-8") as f:
             f.write(cls.to_json_string(dict1))
+
+    @staticmethod
+    def from_json_string(json_string):
+        """returns the list of the JSON string representation"""
+        dict = []
+        if json_string:
+            dict = json.loads(json_string)
+        return dict
