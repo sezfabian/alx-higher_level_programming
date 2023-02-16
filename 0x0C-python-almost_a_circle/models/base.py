@@ -40,4 +40,4 @@ class Base:
             for i in list_objs:
                 dict1.append(i.to_dictionary())
         with open(filename, mode="w", encoding="utf-8") as f:
-                f.write(cls.to_json_string(dict1))
+            f.write(cls.to_json_string(dict1))
