@@ -115,3 +115,12 @@ class TestBase(unittest.TestCase):
         json_string = Base.to_json_string([])
         self.assertEqual(type(json_string), str)
         self.assertEqual(json_string, "[]")
+
+    def test_from_json_string_bases(self):
+        list_input = [
+            {'id': 89},
+            {'id': 7}
+        ]
+        json_list_input = json.dumps(list_input)
+        list_output = Base.from_json_string(json_list_input)
+        self.assertEqual(list_input, list_output)

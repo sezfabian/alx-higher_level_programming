@@ -140,3 +140,37 @@ class TestSquare(unittest.TestCase):
         squares = json.loads(json_string)
         self.assertDictEqual(d1, squares[0])
         self.assertDictEqual(d2, squares[1])
+
+    def test_create_square(self):
+        dict = {'x': 1, 'size': 3, 'id': 3, 'y': 0}
+        r1 = Square.create(**dict)
+        self.assertEqual(str(r1), "[Square] (3) 1/0 - 3")
+
+    def test_create_square1(self):
+        r1 = Square(3, 5, 1, 3)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Square.create(**r1_dictionary)
+        self.assertEqual(str(r1), "[Square] (3) 5/1 - 3")
+        self.assertEqual(str(r2), "[Square] (3) 5/1 - 3")
+        self.assertEqual((r1 is r2), False)
+
+    def test_create_square1(self):
+        r1 = Square(3, 5, 1, 3)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Square.create(**r1_dictionary)
+        self.assertEqual(str(r1), "[Square] (3) 5/1 - 3")
+        self.assertEqual(str(r2), "[Square] (3) 5/1 - 3")
+        self.assertEqual((r1 is r2), False)
+
+    def test_load_from_file_square(self):
+        s1 = Square(10, 7, 2, 8)
+        s2 = Square(2, 4)
+        squares = [s1, s2]
+        Square.save_to_file(squares)
+        squares_output = Square.load_from_file()
+        self.assertEqual(str(s1), str(squares_output[0]))
+        self.assertEqual(str(s2), str(squares_output[1]))
+        self.assertIsNot(s1, squares_output[0])
+        self.assertIsNot(s2, squares_output[1])
+        self.assertNotEqual(s1, squares_output[0])
+        self.assertNotEqual(s2, squares_output[1])

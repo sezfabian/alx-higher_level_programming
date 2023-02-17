@@ -6,8 +6,10 @@ import sys
 import io
 import unittest.mock
 import json
+import os
 from models.base import Base
 from models.rectangle import Rectangle
+from models.square import Square
 
 
 class Test_Rctangle(unittest.TestCase):
@@ -268,7 +270,7 @@ class Test_Rctangle(unittest.TestCase):
     def test_from_json_to_string_empty(self):
         json_list_input = Rectangle.to_json_string(None)
         list_output = Rectangle.from_json_string(json_list_input)
-        self.assertEqual([], list_output)
+        self.assertEqual(None, list_output)
 
     def test_from_json_to_string(self):
         list_input = [
@@ -279,3 +281,59 @@ class Test_Rctangle(unittest.TestCase):
         list_output = Rectangle.from_json_string(json_list_input)
         self.assertEqual(list_input, list_output)
 
+    def test_create_rect(self):
+        dict = {'x': 1, 'width': 3, 'id': 3, 'height': 5, 'y': 0}
+        r1 = Rectangle.create(**dict)
+        self.assertEqual(str(r1), "[Rectangle] (3) 1/0 - 3/5")
+
+    def test_create_rect1(self):
+        r1 = Rectangle(3, 5, 1, 0, 3)
+        r1_dictionary = r1.to_dictionary()
+        r2 = Rectangle.create(**r1_dictionary)
+        self.assertEqual(str(r1), "[Rectangle] (3) 1/0 - 3/5")
+        self.assertEqual(str(r2), "[Rectangle] (3) 1/0 - 3/5")
+        self.assertEqual((r1 is r2), False)
+
+    def test_load_from_file(self):
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+        Rectangle.save_to_file(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file()
+        self.assertEqual(str(r1), str(list_rectangles_output[0]))
+        self.assertEqual(str(r2), str(list_rectangles_output[1]))
+        self.assertIsNot(r1, list_rectangles_output[0])
+        self.assertIsNot(r2, list_rectangles_output[1])
+        self.assertNotEqual(r1, list_rectangles_output[0])
+        self.assertNotEqual(r2, list_rectangles_output[1])
+
+
+    def test_load_from_file_type(self):
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+        Rectangle.save_to_file(list_rectangles_input)
+        list_rectangles_output = Rectangle.load_from_file()
+        self.assertEqual(type(list_rectangles_output), list)
+        areRect = all(type(o) is Rectangle for o in list_rectangles_output)
+        self.assertEqual(areRect, True)
+
+    def load_from_file_two_times_rectangle(self):
+        r1 = Rectangle(10, 7, 2, 8)
+        r2 = Rectangle(2, 4)
+        list_rectangles_input = [r1, r2]
+        Rectangle.save_to_file(list_rectangles_input)
+        list_r1 = Rectangle.load_from_file()
+        list_r2 = Rectangle.load_from_file()
+        self.assertEqual(list_r1, list_r2)
+        self.assertIsNot(list_r1, list_r2)
+
+    def test_load_from_file_no_file(self):
+        if os.path.isfile("Rectangle.json"):
+            os.remove("Rectangle.json")
+        if os.path.isfile("Square.json"):
+            os.remove("Square.json")
+        r = Rectangle.load_from_file()
+        self.assertEqual(r, [])
+        s = Square.load_from_file()
+        self.assertEqual(s, [])

@@ -59,3 +59,57 @@ class Base:
             c1 = cls(1)
         c1.update(**dictionary)
         return c1
+
+    @classmethod
+    def load_from_file(cls):
+        """ Returns a list of instances """
+        filename = str(cls.__name__) + ".json"
+        instance_list = []
+        try:
+            with open(filename, "r", encoding="utf-8") as my_file:
+                dict_from_file = cls.from_json_string(my_file.read())
+
+                for dictionary in dict_from_file:
+                    instance_list.append(cls.create(**dictionary))
+
+                return instance_list
+        except FileNotFoundError:
+            return instance_list
+
+    @classmethod
+    def save_to_file_csv(cls, list_objs):
+        """ Serializes in CSV, similar to save_to_file(json) """
+        filename = str(cls.__name__) + ".csv"
+        with open(filename, "w", newline='') as csv_file:
+            csv_writer = csv.writer(csv_file)
+            dict_list = []
+            if list_objs is None:
+                csv_writer.writerow(dict_list)
+            else:
+                for obj in list_objs:
+                    for key, value in obj.to_dictionary().items():
+                        dict_list.append(value)
+                    csv_writer.writerow(dict_list)
+                    dict_list = []
+
+    @classmethod
+    def load_from_file_csv(cls):
+        """ Deserializes in CSV, similar to from_file(json) """
+        filename = str(cls.__name__) + ".csv"
+        instance_list = []
+        if filename is None:
+            return instance_list
+        else:
+            with open(filename, "r", encoding="utf-8") as csv_file:
+                csv_reader = csv.reader(csv_file)
+                if cls.__name__ == "Rectangle":
+                    attrs = ['id', 'width', 'height', 'x', 'y']
+                if cls.__name__ == "Square":
+                    attrs = ['id', 'size', 'x', 'y']
+
+                for row in csv_reader:
+                    attr_dict = {attrs: int(row)
+                                 for attrs, row in zip(attrs, row)}
+                    instance_list.append(cls.create(**attr_dict))
+
+            return instance_list
