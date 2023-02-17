@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 """base class module"""
 import json
+import turtle
 
 
 class Base:
@@ -113,3 +114,38 @@ class Base:
                     instance_list.append(cls.create(**attr_dict))
 
             return instance_list
+
+    def draw(list_rectangles, list_squares):
+        wn = turtle.Screen()
+        wn.bgcolor("white")
+        wn.title("Turtle")
+        skk = turtle.Turtle()
+        for rect in list_rectangles:
+            skk.color("black")
+            skk.forward(rect.width)
+            skk.right(90)
+            skk.forward(rect.height)
+            skk.right(90)
+            skk.forward(rect.width)
+            skk.right(90)
+            skk.forward(rect.height)
+            skk.back(rect.height)
+            skk.color("white")
+            skk.back(30)
+            skk.right(90)
+
+        for squ in list_squares:
+            skk.color("black")
+            skk.forward(squ.size)
+            skk.right(90)
+            skk.forward(squ.size)
+            skk.right(90)
+            skk.forward(squ.size)
+            skk.right(90)
+            skk.forward(squ.size)
+            skk.back(squ.size)
+            skk.color("white")
+            skk.back(30)
+            skk.right(90)
+
+        turtle.done()
