@@ -5,9 +5,9 @@
 --      name VARCHAR(256) can’t be null
 --      If the database hbtn_0d_usa already exists, your script should not fail
 --      If the table cities already exists, your script should not fail
-CREATE DATABASE hbtn_0d_usa;
+CREATE IF NOT EXISTS DATABASE hbtn_0d_usa;
 USE hbtn_0d_usa;
-CREATE TABLE cities(
+CREATE IF NOT EXISTS TABLE cities(
   id INT UNIQUE AUTO_INCREMENT NOT NULL PRIMARY KEY,
   state_id INT NOT NULL,
   FOREIGN KEY(state_id) REFERENCES states(id),
