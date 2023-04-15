@@ -7,7 +7,7 @@ if (isNaN(myNum)) {
   for (let i = 1; i <= process.argv[2]; i++) {
     let mystring = '';
     for (let i = 1; i <= process.argv[2]; i++) {
-      mystring += '#';
+      mystring += 'X';
     }
     console.log(mystring);
   }
