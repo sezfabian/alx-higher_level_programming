@@ -1,14 +1,9 @@
 #!/usr/bin/node
 const process = require('process');
 const argSize = process.argv.length;
-let maxNum = 0;
-let secNum = 0;
 if (argSize > 3) {
-  for (let i = 2; i < argSize; i++) {
-    if (parseInt(process.argv[i]) >= maxNum) {
-      secNum = maxNum;
-      maxNum = parseInt(process.argv[i]);
-    }
-  }
+  const myNums = process.argv.map(Number).slice(2, argSize).sort((a, b) => a - b);
+  console.log(myNums[argSize - 4]);
+} else {
+  console.log(0);
 }
-console.log(secNum);
