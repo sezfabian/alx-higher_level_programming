@@ -18,11 +18,11 @@ if __name__ == "__main__":
                            pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
     session = Session()
+    mystate = "%" + sys.argv[4] + "%"
 
-    results = session.query(State).order_by(asc(State.id)).filter(
-        State.name.like((sys.argv[4]))).all()
-    if results:
-        for state in results:
-            print(state.id)
+    result = session.query(State).order_by(asc(State.id)).filter(
+        State.name.like(mystate)).first()
+    if result:
+        print(result.id)
     else:
         print("Not Found")
