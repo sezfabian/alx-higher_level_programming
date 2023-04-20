@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 """
-script that lists all State objects from the database hbtn_0e_6_usa
+lists all State objects from the database hbtn_0e_6_usa
 Usage: ./7-model_state_fetch_all.py <mysql username> /
                                     <mysql password> /
                                     <database name>
@@ -11,20 +11,14 @@ from sqlalchemy.orm import sessionmaker
 from sqlalchemy import asc
 from model_state import State
 
-# Database Configuration
-user = sys.argv[1]
-passwd = sys.argv[2]
-host = 'localhost'
-port = 3306
-database = sys.argv[3]
 
 if __name__ == "__main__":
-    engine = create_engine(
-        "mysql+mysqldb://{}:{}@{}:{}/{}"
-        .format(user, passwd, host, port, database), pool_pre_ping=True)
-
+    engine = create_engine("mysql+mysqldb://{}:{}@localhost/{}"
+                           .format(sys.argv[1], sys.argv[2], sys.argv[3]),
+                           pool_pre_ping=True)
     Session = sessionmaker(bind=engine)
-    Session = Session()
-    results = Session.query(State).order_by(asc(State.id)).all()
+    session = Session()
+
+    results = session.query(State).order_by(asc(State.id)).all()
     for state in results:
         print("{}: {}".format(state.id, state.name))
