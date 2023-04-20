@@ -3,9 +3,9 @@
 script that lists all State objects from the database hbtn_0e_6_usa
 """
 import sys
-import sqlalchemy as db
-from model_state import Base, State
+from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from model_state import Base, State
 
 # Database Configuration
 user = sys.argv[1]
@@ -15,11 +15,12 @@ port = 3306
 database = sys.argv[3]
 
 if __name__ == "__main__":
-    engine = db.create_engine(
-        "mysql://{}:{}@{}:{}/{}".format(user, passwd, host, port, database))
+    engine = create_engine(
+        "mysql+mysqldb://{}:{}@{}:{}/{}"
+        .format(user, passwd, host, port, database), pool_pre_ping=True)
 
     Session = sessionmaker(bind=engine)
     Session = Session()
     result = Session.query(State).all()
-    for obj in result:
-        print("{}: {}".format(obj.id, obj.name))
+    for state in result:
+        print("{}: {}".format(state.id, state.name))
