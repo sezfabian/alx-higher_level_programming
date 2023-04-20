@@ -5,6 +5,7 @@ script that lists all State objects from the database hbtn_0e_6_usa
 import sys
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+from sqlalchemy import asc
 from model_state import Base, State
 
 # Database Configuration
@@ -21,6 +22,6 @@ if __name__ == "__main__":
 
     Session = sessionmaker(bind=engine)
     Session = Session()
-    result = Session.query(State).all()
+    result = Session.query(State).order_by(asc(State.id)).all()
     for state in result:
         print("{}: {}".format(state.id, state.name))
